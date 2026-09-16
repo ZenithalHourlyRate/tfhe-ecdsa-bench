@@ -1,0 +1,16 @@
+[package]
+name = "tfhe-ecdsa-bench"
+version = "0.1.0"
+edition = "2021"
+description = "Single-threaded benchmark of one modular multiplication in F_p and F_n (secp256k1) with the latest tfhe-rs"
+
+[dependencies]
+tfhe = { version = "1.8.1", features = ["integer", "internal-keycache"] }
+num-bigint = "0.4"
+rand = "0.8"
+rayon = "1.10"
+
+[profile.release]
+opt-level = 3
+lto = "fat"
+codegen-units = 1
