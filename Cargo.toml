@@ -3,6 +3,22 @@ name = "tfhe-ecdsa-bench"
 version = "0.1.0"
 edition = "2021"
 description = "Single-threaded benchmark of one modular multiplication in F_p and F_n (secp256k1) with the latest tfhe-rs"
+# Keep binary discovery explicit: `gpu-bench` must only build when the CUDA
+# backend is enabled.
+autobins = false
+
+[[bin]]
+name = "tfhe-ecdsa-bench"
+path = "src/main.rs"
+
+[[bin]]
+name = "gpu-bench"
+path = "src/bin/gpu_bench.rs"
+required-features = ["gpu"]
+
+[features]
+# GPU (CUDA) backend: enables `tfhe/gpu` and the `gpu-bench` binary.
+gpu = ["tfhe/gpu"]
 
 [dependencies]
 tfhe = { version = "1.8.1", features = ["integer", "internal-keycache"] }

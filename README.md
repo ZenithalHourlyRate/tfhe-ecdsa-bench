@@ -85,3 +85,18 @@ runs reuse them from disk.
 ## Results
 
 See `RESULTS.md` (filled in from an actual run).
+
+## GPU (CUDA) version
+
+The same benchmark is also available on the tfhe-rs 1.8.1 CUDA backend:
+
+```bash
+cargo run --release --features gpu --bin gpu-bench -- 1 p,n full,wide,barrett,mersenne classic
+cargo run --release --features gpu --bin gpu-bench -- 1 p,n full,wide,barrett,mersenne multibit
+cargo run --release --features gpu --bin gpu-bench -- selftest   # small-NB port check
+```
+
+`classic` uses the CPU benchmark's `PARAM_MESSAGE_2_CARRY_2`; `multibit` uses
+`PARAM_GPU_MULTI_BIT_GROUP_4_MESSAGE_2_CARRY_2_KS_PBS_TUNIFORM_2M128` (faster).
+The GPU port is in `src/bin/gpu_bench.rs` + `src/gpu_field.rs`; the CPU code is
+unchanged. Results: see `RESULTS-GPU.md`.
